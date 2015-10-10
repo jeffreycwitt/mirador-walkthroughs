@@ -2,25 +2,22 @@
 
 In this write up, we describe what happens when, starting from the main screen (where you see a plus sign and "Add Item Link") you click the "Add Item Link", select a manifest, and are taken to the thumbnail screen
 
-## Moving from the "Add Item" Screen to the select manifest list view
 
 When you click on the "Add Item" link, the first thing that happens is that a click event is fired, for which the `$.Workspace` object is listening. When fired, the `$.Workspace` object triggers the event `addItem`. This functions identifies the "slot," in which the event was fired and looks for the parent object of the $.Workspace (i.e.$.Viewer) and requests that existing panels (i.e. workspace-container, workspacePanel, manifestPanel, bookmarkPanel) be toggled so that the div.workspace-container will be hidden and the `div.manifest-select-menu` will become visible.
 
 At this point, a user will see the available manuscripts to select.
 
-# Moving from the Manuscript Select View to the Thumbnail View
-
 When the `manuscriptPanel` initialized, it appended a template  to the existing DOM tree that includes `div.select-results` containing an empty unordered list `ul.items-listing` where manuscriptListItems will be entered.
 
 [unclear to me when ManifestListItems were created when manifests are not entered through the "add new object from Url box"]
 
-Each <li> within this list is populated from an object called `$.ManifestListItem`.
+Each `<li>` within this list is populated from an object called `$.ManifestListItem`.
 
 On initialization of each item in the manifest list, a function called `fetchTplData` is called, which collects a bunch of information about the manifest and sets a `tplData` property on the `$.ManifestListItem` which is accessed in the template. This is used for labeling and describing the manifest in each list.
 
-The initialization also identifies that manifestListElement (the empty <ul> element created in the manifestPanel) and prepend each manifestListItem into the DOM, at first hiding the created "<li>" and the fading it in for a nice effect.
+The initialization also identifies that manifestListElement (the empty `<ul>` element created in the manifestPanel) and prepend each manifestListItem into the DOM, at first hiding the created `<li>` and the fading it in for a nice effect.
 
-When each manuscript loads a click is bound to each resulting <li> element. 
+When each manuscript loads a click is bound to each resulting `<li>` element. 
 
 When you click on the the desired manifest an event bound the `$.Workspace` object called `.addWindow` is fired. This function takes as a parameter an object (referred to as `windowConfig`) with information needed to populate the thumbnail view, the most importance of which is the key `manifest` whose value `_this.manifest` points to the manifest to be loaded in the thumbnail view. 
 
